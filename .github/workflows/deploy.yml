@@ -59,7 +59,7 @@ jobs:
           script: |
             set -e
 
-            ENV_PATH="${{ secrets.EC2_TARGET_DIR }}/study-planner/backend/.env"
+            ENV_PATH="${{ secrets.EC2_TARGET_DIR }}/backend/.env"
 
             echo "🔐 Writing .env file"
 
