@@ -80,7 +80,7 @@ jobs:
           script: |
             set -e
 
-            cd ${{ secrets.EC2_TARGET_DIR }}/study-planner
+            cd ${{ secrets.EC2_TARGET_DIR }}
 
             docker-compose down || true
             docker-compose up --build -d
