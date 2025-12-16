@@ -1,14 +1,24 @@
-FROM python:3.13-slim-bookworm
+FROM python:3.11-slim
 
+# Evita archivos .pyc y buffer de logs
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=0.0.0.0
+# Copiamos dependencias
+COPY requirements.txt .
 
-COPY requirements.txt requirements.txt
+# Instalamos dependencias
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# Copiamos el backend y templates
+COPY backend ./backend
+COPY templates ./templates
 
-COPY . .
-CMD ["flask", "run"]
+# Exponemos el puerto de Flask
+EXPOSE 5000
+
+# Comando de arranque
+CMD ["python", "backend/app.py"]
